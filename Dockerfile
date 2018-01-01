@@ -4,7 +4,7 @@ MAINTAINER Malcolm Smith
 # Install Supporting Packages
 RUN apt-get -q update && \
   apt-get install -qy curl python && \
-  curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
+  curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
   apt-get -q update && \
   apt-get install -qy \
     build-essential \
@@ -14,12 +14,12 @@ RUN apt-get -q update && \
   apt-get -q clean && \
   rm -rf /var/lib/apt/lists/*
 
-RUN npm -g install npm@latest-2 && \
-  npm install -g homebridge && \
-  npm install -g homebridge-indigo && \
-  npm install -g homebridge-hs100 && \ 
-  mkdir -p /config && \
-  cp /usr/lib/node_modules/homebridge-indigo/sampleconfig.json /config/config.json
+
+RUN npm -g install npm@3  --prefix=/usr/local
+
+RUN    npm -g install --unsafe-perm homebridge 
+RUN    npm -g install homebridge-tplink-smarthome  
+RUN    npm -g install homebridge-ifttt
 
 COPY run.sh /run.sh
 
